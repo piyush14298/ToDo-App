@@ -1,7 +1,10 @@
 <template>
   <div id="app">
+    <h3> Enter your user ID to view your TODOs</h3>
     <Input v-on:getuser="getuser" />
+    <h3><br><br>Want to add to your TODOs? Enter your ID and the TODO</h3>
     <AddTodo v-on:add-todo="addTodo" />
+    <br><br><br><h2>TODOs</h2>
     <Todos v-bind:todos="todos" v-on:del-todo="deleteTodo" />
   </div>
 </template>
