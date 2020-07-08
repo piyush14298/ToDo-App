@@ -77,7 +77,7 @@ export default {
   .btn {
     display: inline-block;
     border: none;
-    background: #555;
+    background: rgb(68, 68, 67);
     color: #fff;
     padding: 7px 20px;
     cursor: pointer;
