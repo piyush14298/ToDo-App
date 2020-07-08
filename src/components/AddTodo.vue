@@ -1,6 +1,7 @@
 <template>
   <div>
     <form @submit.prevent="addTodo">
+      <input type="text" v-model="userId" name="title" placeholder="User Id to add ToDo...">
       <input type="text" v-model="title" name="title" placeholder="Add Todo...">
       <input type="submit" value="Submit" class="btn">
     </form>
@@ -13,12 +14,14 @@ export default {
   name: "AddTodo",
   data() {
     return {
-      title: ''
+      title: '',
+      userId: ''
     }
   },
   methods: {
     addTodo() {
       const newTodo = {
+        userId: this.userId,
         title: this.title,
         completed: false
       }

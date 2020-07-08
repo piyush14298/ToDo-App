@@ -1,6 +1,6 @@
-# Vue Crash Course (TodoList)
+# TODO APP
 
-This is the code for [the crash course on YouTube](https://youtu.be/Wy9q22isx3U)
+This is an app that manages todos for the users.
 
 ## Quick Start
 

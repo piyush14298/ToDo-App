@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Input v-on:getuser="getuser" />
     <AddTodo v-on:add-todo="addTodo" />
     <Todos v-bind:todos="todos" v-on:del-todo="deleteTodo" />
   </div>
@@ -8,11 +9,13 @@
 <script>
 import Todos from '../components/Todos';
 import AddTodo from '../components/AddTodo';
+import Input from '../components/Input';
 import axios from 'axios';
 
 export default {
   name: 'Home',
   components: {
+    Input,
     Todos,
     AddTodo
   },
@@ -23,26 +26,36 @@ export default {
   },
   methods: {
     deleteTodo(id) {
-      axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+      axios.delete(`http://localhost:3000/posts/${id}`)
         .then(res => this.todos = this.todos.filter(todo => todo.id !== id))
+        // eslint-disable-next-line no-console
         .catch(err => console.log(err));
     },
     addTodo(newTodo) {
-      const { title, completed } = newTodo;
+      const {userId, title, completed } = newTodo;
 
-      axios.post('https://jsonplaceholder.typicode.com/todos', {
+      axios.post('http://localhost:3000/posts', {
+        userId,
         title,
         completed
       })
-        .then(res => this.todos = [...this.todos, res.data])
+        .then(res => this.todos = [...this.todos, res.data].filter(todo=> todo.userId == this.userId))
+        // eslint-disable-next-line no-console
         .catch(err => console.log(err));
+    },
+    getuser(userId) {
+      this.todos=axios.get('http://localhost:3000/posts?')
+      .then(res => this.todos = res.data.filter(todo => todo.userId == userId))
+      // eslint-disable-next-line no-console
+      .catch(err => console.log(err));
     }
   },
-  created() {
-    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5')
-      .then(res => this.todos = res.data)
-      .catch(err => console.log(err));
-  }
+  // created() {
+  //   axios.get('http://localhost:3000/posts?')
+  //     .then(res => this.todos = res.data)
+  //     // eslint-disable-next-line no-console
+  //     .catch(err => console.log(err));
+  // }
 }
 </script>
 
